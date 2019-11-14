@@ -7,7 +7,9 @@ const app = express();
 
 app.post("/upload", cors(), upload.single("file"), function(req, res, next) {
   console.log(req.file);
-  res.send("here");
+  let filename = req.file.filename;
+  let object = { id: filename };
+  res.send(JSON.stringify(object));
 });
 app.get("/", cors(), function(req, res, next) {
   res.json({ key: "hello" });
