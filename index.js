@@ -5,14 +5,10 @@ const upload = multer({ dest: "yyy/" });
 
 const app = express();
 
-app.post("/upload", cors(), upload.array("files", 12), function(
-  req,
-  res,
-  next
-) {
-  console.log(req.files);
-
-  res.send(JSON.stringify(req.files.map(file => file.filename)));
+app.post("/upload", cors(), upload.single("file"), function(req, res, next) {
+  let filename = req.file.filename;
+  let object = { id: filename };
+  res.send(JSON.stringify(object));
 });
 app.get("/", cors(), function(req, res, next) {
   res.json({ key: "hello" });
